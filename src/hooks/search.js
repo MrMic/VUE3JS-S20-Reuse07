@@ -4,18 +4,20 @@ export default function useSearch(items, searchProp) {
   const enteredSearchTerm = ref('');
   const activeSearchTerm = ref('');
 
+  // ______________________________________________________________________
   const availableItems = computed(function () {
     let filteredItems = [];
     if (activeSearchTerm.value) {
-      filteredItems = items.filter((item) =>
+      filteredItems = items.value.filter((item) =>
         item[searchProp].includes(activeSearchTerm.value)
       );
-    } else if (items) {
-      filteredItems = items;
+    } else if (items.value) {
+      filteredItems = items.value;
     }
     return filteredItems;
   });
 
+  // ______________________________________________________________________
   watch(enteredSearchTerm, function (newValue) {
     setTimeout(() => {
       if (newValue === enteredSearchTerm.value) {
